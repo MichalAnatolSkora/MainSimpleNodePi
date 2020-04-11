@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using MainSimpleNodePi.Sensors;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TemperatureReaderPiCore;
 
 namespace MainSimpleNodePi.Controllers
 {
@@ -16,9 +17,9 @@ namespace MainSimpleNodePi.Controllers
         }
 
         [HttpGet]
-        public decimal Get()
+        public async Task<decimal> Get()
         {
-            return _temperatureReader.ReadTemperature();
+            return await _temperatureReader.ReadTemperature();
         }
     }
 }

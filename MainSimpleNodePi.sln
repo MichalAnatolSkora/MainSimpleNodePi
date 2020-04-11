@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainSimpleNodePi", "MainSimpleNodePi\MainSimpleNodePi.csproj", "{897805C9-F0C9-44CB-921D-E91A2FDE10C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainSimpleNodePi", "MainSimpleNodePi\MainSimpleNodePi.csproj", "{897805C9-F0C9-44CB-921D-E91A2FDE10C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperatureReaderPiCore", "TemperatureReaderPiCore\TemperatureReaderPiCore.csproj", "{B181C301-0180-4A0D-B8BB-A60620A9CD98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{897805C9-F0C9-44CB-921D-E91A2FDE10C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897805C9-F0C9-44CB-921D-E91A2FDE10C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897805C9-F0C9-44CB-921D-E91A2FDE10C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B181C301-0180-4A0D-B8BB-A60620A9CD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B181C301-0180-4A0D-B8BB-A60620A9CD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B181C301-0180-4A0D-B8BB-A60620A9CD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B181C301-0180-4A0D-B8BB-A60620A9CD98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
