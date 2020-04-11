@@ -9,7 +9,7 @@ namespace MainSimpleNodePi.Sensors
     {
         public decimal ReadTemperature()
         {
-            return 16;
+            return 40;
         }
     }
 }
