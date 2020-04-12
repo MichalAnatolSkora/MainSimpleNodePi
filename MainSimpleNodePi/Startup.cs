@@ -24,11 +24,11 @@ namespace MainSimpleNodePi
             var os = Environment.OSVersion;
             if (os.Platform == PlatformID.Win32NT)
             {
-                services.AddTransient<ITemperatureReader, FakeTemperatureReader>();
+                services.AddSingleton<ITemperatureReader, FakeTemperatureReader>();
             }
             else
             {
-                services.AddTransient<ITemperatureReader, TemperatureReader>();
+                services.AddSingleton<ITemperatureReader, TemperatureReader>();
             }
 
             services.AddControllersWithViews();
