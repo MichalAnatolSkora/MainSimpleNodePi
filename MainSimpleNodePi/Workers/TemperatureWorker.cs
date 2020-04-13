@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MainSimpleNodePi.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,11 +13,13 @@ namespace MainSimpleNodePi.Workers
     {
         private readonly ILogger<TemperatureWorker> _logger;
         private readonly ITemperatureReader _temperatureReader;
+        private readonly IHubContext<TemperatureHub> _temperatureHubContext;
 
-        public TemperatureWorker(ILogger<TemperatureWorker> logger, ITemperatureReader temperatureReader)
+        public TemperatureWorker(ILogger<TemperatureWorker> logger, ITemperatureReader temperatureReader, IHubContext<TemperatureHub> temperatureHubContext)
         {
             _logger = logger;
             _temperatureReader = temperatureReader;
+            _temperatureHubContext = temperatureHubContext;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -26,8 +29,7 @@ namespace MainSimpleNodePi.Workers
                 _logger.LogInformation("Worker running at: {Time}", DateTime.Now);
                 var temp = await _temperatureReader.ReadTemperature();
                 _logger.LogInformation($"Read temperature: {temp}");
-                //await _clockHub.Clients.All.ShowTime(DateTime.Now);
-                await Task.Delay(1000);
+                await this._temperatureHubContext.Clients.All.SendAsync("ReceiveTemperature", temp, cancellationToken: stoppingToken);
             }
         }
     }

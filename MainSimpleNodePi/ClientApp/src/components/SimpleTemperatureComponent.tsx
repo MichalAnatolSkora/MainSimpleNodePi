@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import * as signalR from '@aspnet/signalr';
 
 type SimpleTemperatureComponentState = { temperature: number | null, loading: boolean };
 
@@ -9,7 +10,20 @@ export class SimpleTemperatureComponent extends Component<{}, SimpleTemperatureC
     }
 
     public componentDidMount() {
-        this.populate();
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/temperatureHub")
+            .configureLogging(signalR.LogLevel.Trace)
+            .build();
+
+        connection.on("ReceiveTemperature", (data) => {
+            console.log("ReceiveTemperature");
+            console.log(data);
+            this.setState({ temperature: data, loading: false });
+        });
+
+        connection.start().catch(err => console.error(err.toString())).then(function () {
+            console.log("Streaming connected");
+        });
     }
 
     public render() {

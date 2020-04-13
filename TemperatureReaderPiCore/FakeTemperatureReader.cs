@@ -13,7 +13,7 @@ namespace TemperatureReaderPiCore
             {
                 _indexToUse = 0;
             }
-
+            await Task.Delay(1000);
             return await Task.FromResult(_temperatures[_indexToUse++]);
         }
     }
