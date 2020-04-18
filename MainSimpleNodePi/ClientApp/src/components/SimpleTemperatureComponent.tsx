@@ -6,25 +6,12 @@ import ApexCharts from 'apexcharts';
 type SimpleTemperatureComponentState = { temperature: number[] | null, loading: boolean };
 
 export class SimpleTemperatureComponent extends Component<{}, any> {
+    private hubConnection: signalR.HubConnection;
+
     private XAXISRANGE: number = 1000*60; // 00
     private TICKINTERVAL: number = 86400 // 00
     private data: { x: number, y: number }[] = [];
     private lastDate: number = 0;
-
-    private getDayWiseTimeSeries(baseval: number, count: number, yrange: { max: number, min: number }) {
-        var i = 0;
-        while (i < count) {
-            var x = baseval;
-            var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-            this.data.push({
-                x, y
-            });
-            this.lastDate = baseval;
-            baseval += this.TICKINTERVAL;
-            i++;
-        }
-    }
 
     private getNewSeries(baseval: number, data: number) {
         var newDate = Date.now();
@@ -53,6 +40,7 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
             temperature: [],
             loading: true,
             series: [{
+                name: "Temperature",
                 data: this.data.slice()
             }],
             options: {
@@ -99,15 +87,13 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
                 },
             },
         };
-    }
 
-    public componentDidMount() {
-        const connection = new signalR.HubConnectionBuilder()
+        this.hubConnection = new signalR.HubConnectionBuilder()
             .withUrl("/temperatureHub")
             .configureLogging(signalR.LogLevel.Trace)
             .build();
 
-        connection.on("ReceiveTemperature", (data) => {
+        this.hubConnection.on("ReceiveTemperature", (data) => {
             console.log("ReceiveTemperature");
             console.log(data);
 
@@ -122,10 +108,16 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
                     min: 0,
                     max: 40
                 },
-              });
+            });
         });
+    }
 
-        connection.start().catch(err => console.error(err.toString())).then(function () {
+    public componentWillUnmount() {
+        this.hubConnection.stop();
+    }
+
+    public componentDidMount() {
+        this.hubConnection.start().catch(err => console.error(err.toString())).then(function () {
             console.log("Streaming connected");
         });
     }
