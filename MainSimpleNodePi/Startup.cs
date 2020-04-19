@@ -1,5 +1,6 @@
 using System;
 using MainSimpleNodePi.Hubs;
+using MainSimpleNodePi.MemoryDataSource;
 using MainSimpleNodePi.Workers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,8 @@ namespace MainSimpleNodePi
             {
                 services.AddSingleton<ITemperatureReader, TemperatureReader>();
             }
+
+            services.AddTransient<ITemperatureSource, TemperatureMemoryDataSource>();
 
             services.AddControllersWithViews();
 

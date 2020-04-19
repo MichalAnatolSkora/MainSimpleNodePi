@@ -56,10 +56,10 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
                         }
                     },
                     toolbar: {
-                        show: false
+                        show: true
                     },
                     zoom: {
-                        enabled: false
+                        enabled: true
                     }
                 },
                 dataLabels: {
@@ -69,7 +69,7 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
                     curve: 'smooth'
                 },
                 title: {
-                    text: 'Dynamic Updating Chart',
+                    text: 'Temperature',
                     align: 'left'
                 },
                 markers: {
@@ -117,6 +117,7 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
     }
 
     public componentDidMount() {
+        this.populate();
         this.hubConnection.start().catch(err => console.error(err.toString())).then(function () {
             console.log("Streaming connected");
         });
@@ -124,7 +125,6 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
 
     public render() {
         return <div>
-            <p>{this.state.temperature}</p>
             <div id="chart">
                 <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={350} />
             </div>
@@ -134,6 +134,6 @@ export class SimpleTemperatureComponent extends Component<{}, any> {
     private async populate() {
         const response = await fetch('temperature');
         const data = await response.json();
-        this.setState({ temperature: data, loading: false });
+        // this.setState({ temperature: data, loading: false });
     }
 }

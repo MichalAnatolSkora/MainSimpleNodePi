@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using TemperatureReaderPiCore;
+using MainSimpleNodePi.MemoryDataSource;
 
 namespace MainSimpleNodePi.Controllers
 {
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using TemperatureReaderPiCore;
+
     [ApiController]
     [Route("[controller]")]
     public class TemperatureController : ControllerBase
     {
-        private readonly ITemperatureReader _temperatureReader;
+        private readonly ITemperatureSource temperatureSource;
 
-        public TemperatureController(ITemperatureReader temperatureReader)
+        public TemperatureController(ITemperatureSource temperatureSource)
         {
-            _temperatureReader = temperatureReader;
+            this.temperatureSource = temperatureSource;
         }
 
         [HttpGet]
-        public async Task<decimal> Get()
+        public async Task<List<TemperatureRecord>> Get()
         {
-            return await _temperatureReader.ReadTemperature();
+            return await this.temperatureSource.GetTemperature();
         }
     }
 }

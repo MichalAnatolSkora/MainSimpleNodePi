@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainSimpleNodePi", "MainSimpleNodePi\MainSimpleNodePi.csproj", "{897805C9-F0C9-44CB-921D-E91A2FDE10C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperatureReaderPiCore", "TemperatureReaderPiCore\TemperatureReaderPiCore.csproj", "{B181C301-0180-4A0D-B8BB-A60620A9CD98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureReaderPiCore", "TemperatureReaderPiCore\TemperatureReaderPiCore.csproj", "{B181C301-0180-4A0D-B8BB-A60620A9CD98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{54C53C38-8CFB-4396-80DE-D3104810F953}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
